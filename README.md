@@ -7,7 +7,7 @@ This is the sample project that belongs to the [React & Apollo Tutorial](https:/
 ### 1. Clone repository
 
 ```sh
-git clone https://github.com/howtographql/react-apollo/
+git clone https://github.com/ivan0v42/react-apollo-1.git
 ```
 
 ### 2. Install dependencies & Deploy the Prisma database API
@@ -73,6 +73,11 @@ Now that the server is running, you can start the app as well. The commands need
 ```sh
 yarn install
 yarn start
+
+or
+
+npm i
+npn run start
 ```
 
 You can now open your browser and use the app on `http://localhost:3000`.
