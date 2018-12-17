@@ -1,5 +1,5 @@
-# source: https://eu1.prisma.sh/christian-nwamba-fd2dcf/hackernews-node/dev
-# timestamp: Wed Jun 06 2018 14:46:47 GMT+0100 (WAT)
+# source: https://us1.prisma.sh/ivan0v42-926ea3/infomaximum/proceset
+# timestamp: Wed Dec 12 2018 04:01:26 GMT+0300 (GMT+03:00)
 
 type AggregateLink {
   count: Int!
@@ -25,7 +25,7 @@ type Link implements Node {
   createdAt: DateTime!
   description: String!
   url: String!
-  postedBy(where: UserWhereInput): User
+  postedBy: User
   votes(where: VoteWhereInput, orderBy: VoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Vote!]
 }
 
@@ -97,6 +97,159 @@ type LinkPreviousValues {
   url: String!
 }
 
+input LinkScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [LinkScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [LinkScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [LinkScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  description: String
+
+  """All values that are not equal to given value."""
+  description_not: String
+
+  """All values that are contained in given list."""
+  description_in: [String!]
+
+  """All values that are not contained in given list."""
+  description_not_in: [String!]
+
+  """All values less than the given value."""
+  description_lt: String
+
+  """All values less than or equal the given value."""
+  description_lte: String
+
+  """All values greater than the given value."""
+  description_gt: String
+
+  """All values greater than or equal the given value."""
+  description_gte: String
+
+  """All values containing the given string."""
+  description_contains: String
+
+  """All values not containing the given string."""
+  description_not_contains: String
+
+  """All values starting with the given string."""
+  description_starts_with: String
+
+  """All values not starting with the given string."""
+  description_not_starts_with: String
+
+  """All values ending with the given string."""
+  description_ends_with: String
+
+  """All values not ending with the given string."""
+  description_not_ends_with: String
+  url: String
+
+  """All values that are not equal to given value."""
+  url_not: String
+
+  """All values that are contained in given list."""
+  url_in: [String!]
+
+  """All values that are not contained in given list."""
+  url_not_in: [String!]
+
+  """All values less than the given value."""
+  url_lt: String
+
+  """All values less than or equal the given value."""
+  url_lte: String
+
+  """All values greater than the given value."""
+  url_gt: String
+
+  """All values greater than or equal the given value."""
+  url_gte: String
+
+  """All values containing the given string."""
+  url_contains: String
+
+  """All values not containing the given string."""
+  url_not_contains: String
+
+  """All values starting with the given string."""
+  url_starts_with: String
+
+  """All values not starting with the given string."""
+  url_not_starts_with: String
+
+  """All values ending with the given string."""
+  url_ends_with: String
+
+  """All values not ending with the given string."""
+  url_not_ends_with: String
+}
+
 type LinkSubscriptionPayload {
   mutation: MutationType!
   node: Link
@@ -143,19 +296,35 @@ input LinkUpdateInput {
   votes: VoteUpdateManyWithoutLinkInput
 }
 
+input LinkUpdateManyDataInput {
+  description: String
+  url: String
+}
+
+input LinkUpdateManyMutationInput {
+  description: String
+  url: String
+}
+
 input LinkUpdateManyWithoutPostedByInput {
   create: [LinkCreateWithoutPostedByInput!]
   connect: [LinkWhereUniqueInput!]
   disconnect: [LinkWhereUniqueInput!]
   delete: [LinkWhereUniqueInput!]
   update: [LinkUpdateWithWhereUniqueWithoutPostedByInput!]
+  updateMany: [LinkUpdateManyWithWhereNestedInput!]
+  deleteMany: [LinkScalarWhereInput!]
   upsert: [LinkUpsertWithWhereUniqueWithoutPostedByInput!]
 }
 
-input LinkUpdateOneWithoutVotesInput {
+input LinkUpdateManyWithWhereNestedInput {
+  where: LinkScalarWhereInput!
+  data: LinkUpdateManyDataInput!
+}
+
+input LinkUpdateOneRequiredWithoutVotesInput {
   create: LinkCreateWithoutVotesInput
   connect: LinkWhereUniqueInput
-  delete: Boolean
   update: LinkUpdateWithoutVotesDataInput
   upsert: LinkUpsertWithoutVotesInput
 }
@@ -368,9 +537,8 @@ type Mutation {
   upsertLink(where: LinkWhereUniqueInput!, create: LinkCreateInput!, update: LinkUpdateInput!): Link!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertVote(where: VoteWhereUniqueInput!, create: VoteCreateInput!, update: VoteUpdateInput!): Vote!
-  updateManyLinks(data: LinkUpdateInput!, where: LinkWhereInput): BatchPayload!
-  updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
-  updateManyVotes(data: VoteUpdateInput!, where: VoteWhereInput): BatchPayload!
+  updateManyLinks(data: LinkUpdateManyMutationInput!, where: LinkWhereInput): BatchPayload!
+  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   deleteManyLinks(where: LinkWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyVotes(where: VoteWhereInput): BatchPayload!
@@ -556,6 +724,19 @@ input UserUpdateInput {
   votes: VoteUpdateManyWithoutUserInput
 }
 
+input UserUpdateManyMutationInput {
+  name: String
+  email: String
+  password: String
+}
+
+input UserUpdateOneRequiredWithoutVotesInput {
+  create: UserCreateWithoutVotesInput
+  connect: UserWhereUniqueInput
+  update: UserUpdateWithoutVotesDataInput
+  upsert: UserUpsertWithoutVotesInput
+}
+
 input UserUpdateOneWithoutLinksInput {
   create: UserCreateWithoutLinksInput
   connect: UserWhereUniqueInput
@@ -563,14 +744,6 @@ input UserUpdateOneWithoutLinksInput {
   delete: Boolean
   update: UserUpdateWithoutLinksDataInput
   upsert: UserUpsertWithoutLinksInput
-}
-
-input UserUpdateOneWithoutVotesInput {
-  create: UserCreateWithoutVotesInput
-  connect: UserWhereUniqueInput
-  delete: Boolean
-  update: UserUpdateWithoutVotesDataInput
-  upsert: UserUpsertWithoutVotesInput
 }
 
 input UserUpdateWithoutLinksDataInput {
@@ -781,8 +954,8 @@ input UserWhereUniqueInput {
 
 type Vote implements Node {
   id: ID!
-  link(where: LinkWhereInput): Link!
-  user(where: UserWhereInput): User!
+  link: Link!
+  user: User!
 }
 
 """A connection to a list of items."""
@@ -840,6 +1013,57 @@ type VotePreviousValues {
   id: ID!
 }
 
+input VoteScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [VoteScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [VoteScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [VoteScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+}
+
 type VoteSubscriptionPayload {
   mutation: MutationType!
   node: Vote
@@ -880,8 +1104,8 @@ input VoteSubscriptionWhereInput {
 }
 
 input VoteUpdateInput {
-  link: LinkUpdateOneWithoutVotesInput
-  user: UserUpdateOneWithoutVotesInput
+  link: LinkUpdateOneRequiredWithoutVotesInput
+  user: UserUpdateOneRequiredWithoutVotesInput
 }
 
 input VoteUpdateManyWithoutLinkInput {
@@ -890,6 +1114,7 @@ input VoteUpdateManyWithoutLinkInput {
   disconnect: [VoteWhereUniqueInput!]
   delete: [VoteWhereUniqueInput!]
   update: [VoteUpdateWithWhereUniqueWithoutLinkInput!]
+  deleteMany: [VoteScalarWhereInput!]
   upsert: [VoteUpsertWithWhereUniqueWithoutLinkInput!]
 }
 
@@ -899,15 +1124,16 @@ input VoteUpdateManyWithoutUserInput {
   disconnect: [VoteWhereUniqueInput!]
   delete: [VoteWhereUniqueInput!]
   update: [VoteUpdateWithWhereUniqueWithoutUserInput!]
+  deleteMany: [VoteScalarWhereInput!]
   upsert: [VoteUpsertWithWhereUniqueWithoutUserInput!]
 }
 
 input VoteUpdateWithoutLinkDataInput {
-  user: UserUpdateOneWithoutVotesInput
+  user: UserUpdateOneRequiredWithoutVotesInput
 }
 
 input VoteUpdateWithoutUserDataInput {
-  link: LinkUpdateOneWithoutVotesInput
+  link: LinkUpdateOneRequiredWithoutVotesInput
 }
 
 input VoteUpdateWithWhereUniqueWithoutLinkInput {
